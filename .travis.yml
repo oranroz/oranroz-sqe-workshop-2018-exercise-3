@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - 10
+  - node
+
+cache: npm
+
+script:
+  - npm run test
+
+notifications:
+  email:
+    recipients:
+      - oranroz@bgu.ac.il
+on_failure: always
