@@ -36,29 +36,7 @@ function startGraph(arrNode) {
     gra.buildEdgesGraph(arrNode[0]);
     gra.addEdgeBtwnCircle();
 }
-/*let index = 0;
 
-function printColorCode(code){
-    let colorMap = sym.getColorMap();
-    for(let i = 0;i<code.length;i++ ){
-        let line = code[i];let color='';
-        if(line.includes('if') || line.includes('else'))
-        {
-            let temp = colorMap[index];
-            color = checkColor(temp);
-            index++;
-        }
-        else
-            color = 'white';
-        $('#result').append($('<div>'+line+'</div>').addClass(color));
-    }
-}
-function checkColor(temp) {
-    if(temp === true)
-        return 'green';
-    else if (temp === false)
-        return 'red';
-}*/
 function draw(str) {
     var diagram = flowchart.parse(str);
     diagram.drawSVG('diagram', {
