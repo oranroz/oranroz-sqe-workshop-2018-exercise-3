@@ -4,7 +4,7 @@ import * as sym from './part2';
 import * as gra from './graph';
 export {initAll,startGraph};
 
-
+//
 $(document).ready(function () {
     $('#codeSubmissionButton').click(() => {
         $('.red').remove();
