@@ -292,7 +292,25 @@ function parsLiteral(code,dic,bool,nodeC,circleNode) {
         return code.raw;
 }
 
+function checkOrAnd(cond) {
+    if(cond.includes('||')){
+        let arr = cond.split('|');
+        let size = arr[0].length;
+        let left = arr[0].substring(0,size-1);
+        let right = arr[arr.length-1].substring(1);
+        return left + ' || ' + right;
+    }else if(cond.includes('&&')){
+        let arr = cond.split('&');
+        let size = arr[0].length;
+        let left = arr[0].substring(0,size-1);
+        let right = arr[arr.length-1].substring(1);
+        return left + ' && ' + right;
+    }
+    else
+        return cond;
 
+
+}
 let tempNode = {};
 function parsIfStatement(code,dic,bool,nodeC,circleNode) {
     let cond = parser(code.test,dic,bool,nodeC,circleNode);tempNode ={};
@@ -365,7 +383,7 @@ function NodeCopy(nodeC) {
 function forIfState(cond,dic,bool){
     let finalVal = checkVar(cond,dic);
     let condNum = replaceObjectToNum(finalVal);
-    let bolleanColor = eval(condNum);
+    let bolleanColor = eval(checkOrAnd(condNum));
     if(bool === undefined){
         return bolleanColor;
     }else{
@@ -517,6 +535,11 @@ function parsUpdateExpression(code,dic,bool,nodeC,circleNode) {
     return line;
 }
 
+function parsLogicalExpression(code,dic,bool,nodeC,circleNode){
+    var left = parser(code.left,dic,bool,nodeC,circleNode);
+    var right = parser(code.right,dic,bool,nodeC,circleNode);
+    return '(('+ left+')'+ code.operator +'('+ right+'))';
+}
 function checkVar(value,tempDic) {
     let arr;
     var finalVal = '';
@@ -700,5 +723,6 @@ let dictionary = {
     'ReturnStatement': parsReturnStatement,
     'UnaryExpression': parsUnaryExpression,
     'MemberExpression': parsMemberExpression,
+    'LogicalExpression':parsLogicalExpression,
     'UpdateExpression': parsUpdateExpression
 };
